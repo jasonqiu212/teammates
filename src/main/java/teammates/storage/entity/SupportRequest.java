@@ -46,12 +46,12 @@ public class SupportRequest extends BaseEntity {
     public SupportRequest(String email, String title, String description, String status, String response, Boolean hasNewChanges) {
         this.setEmail(email);
         this.setTitle(title);
-        this.setId(generateId(email, title));
+        this.setCreatedAt(Instant.now());
+        this.setId(generateId(email, createdAt));
         this.setDescription(description);
         this.setStatus(status);
         this.setResponse(response);
         this.setHasNewChanges(hasNewChanges);
-        this.setCreatedAt(Instant.now());
         this.setModifiedAt(Instant.now());
     }
 
