@@ -41,8 +41,12 @@ public final class SupportRequestsDb extends EntitiesDb<SupportRequest, SupportR
 
     public List<SupportRequestAttributes> getSupportRequestsForEmail(String email) {
         assert email != null;
+
+        List<SupportRequest> supportRequests = getSupportRequestEntitiesForEmail(email);
+        List<SupportRequestAttributes> supportRequestAttributes = makeAttributes(supportRequests);
+        SupportRequestAttributes.sortByCreatedAt(supportRequestAttributes);
         
-        return makeAttributes(getSupportRequestEntitiesForEmail(email));
+        return supportRequestAttributes;
     }
 
     private List<SupportRequest> getSupportRequestEntitiesForEmail(String email) {
