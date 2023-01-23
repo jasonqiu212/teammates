@@ -6,7 +6,6 @@ import java.util.List;
 
 import teammates.common.util.FieldValidator;
 import teammates.common.util.SanitizationHelper;
-import teammates.common.util.StringHelper;
 import teammates.storage.entity.SupportRequest;
 
 /**
@@ -19,6 +18,7 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
     private String title;
     private String description;
     private Status status;
+    private Category category;
     private String response;
     private Boolean hasNewChanges;
     private Instant createdAt;
@@ -30,6 +30,7 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
         this.title = "";
         this.description = "";
         this.status = Status.PENDING;
+        this.category = Category.OTHERS;
         this.response = "";
         this.hasNewChanges = true;
         this.createdAt = Instant.now();
@@ -53,7 +54,9 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
         }
 
         supportRequestAttributes.status = Status.getStatusEnumValue(sr.getStatus());
-        
+
+        supportRequestAttributes.category = Category.getCategoryEnumValue(sr.getCategory());
+
         if (sr.getResponse() != null) {
             supportRequestAttributes.response = sr.getResponse();
         }
@@ -72,7 +75,7 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
 
     @Override
     public SupportRequest toEntity() {
-        return new SupportRequest(email, title, description, status.name().toLowerCase(), response, hasNewChanges);
+        return new SupportRequest(email, title, description, status.name().toLowerCase(), category.name().toLowerCase(), response, hasNewChanges);
     }
 
     public String getId() {
@@ -111,6 +114,14 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
         this.status = status;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public String getResponse() {
         return response;
     }
@@ -143,20 +154,21 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
         this.modifiedAt = modifiedAt;
     }
 
-    // TODO: 
-    // Need to create Field Validators for Support Request Title and Support Request description
-    // (See: common.util.FieldValidator class)
     @Override
     public List<String> getInvalidityInfo() {
         List<String> errors = new ArrayList<>();
 
-        if (!StringHelper.isEmpty(email)) { // if condition – allows empty field (ie. email = "")
-            addNonEmptyError(FieldValidator.getInvalidityInfoForEmail(email), errors);
-        }
+        addNonEmptyError(FieldValidator.getInvalidityInfoForEmail(email), errors);
 
-        // ADD MORE FIELD VALIDATORS HERE
+        addNonEmptyError(FieldValidator.getInvalidityInfoForSupportRequestTitle(title), errors);
+
+        addNonEmptyError(FieldValidator.getInvalidityInfoForSupportRequestDescription(description), errors);
+
+        addNonEmptyError(FieldValidator.getInvalidityInfoForSupportRequestResponse(response), errors);
 
         assert status != null;
+
+        assert category != null;
 
         return errors;
     }
@@ -165,7 +177,8 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
     public void sanitizeForSaving() {
         this.email = SanitizationHelper.sanitizeEmail(email);
         this.title = SanitizationHelper.sanitizeTitle(title);
-        this.description = SanitizationHelper.sanitizeForRichText(description);
+        this.description = SanitizationHelper.sanitizeTextField(description);
+        this.response = SanitizationHelper.sanitizeTextField(response);
     }
 
     /**
@@ -175,17 +188,38 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
         SUBMITTED,
         PENDING,
         REQUEST_TO_CLOSE, 
-        RESOLVED;
+        CLOSED;
 
-        // DK if need to keep this function; Gender has it cus they have the default OTHERS option, bu
-        // 
         public static Status getStatusEnumValue(String status) {
             try {
                 return Status.valueOf(status.toUpperCase());
             } catch (IllegalArgumentException e) {
-                return Status.SUBMITTED;  // currently set default to 'submitted', may want to change this or add another status like 'invalid'
+                return Status.SUBMITTED;
             }
         }
     }
     
+    /*
+     * Represents the category of the Support Request. 
+     */
+    public enum Category {
+        BUG_REPORT,
+        NEW_FEATURE,
+        INQUIRY,
+        OTHERS;
+
+        public static Category getCategoryEnumValue(String category) {
+            if (category == null) {
+                return Category.OTHERS;
+            }
+
+            try {
+                return Category.valueOf(category.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return Category.OTHERS;
+            }
+            
+        }
+    }
+
 }

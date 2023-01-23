@@ -1,6 +1,5 @@
 package teammates.storage.entity;
 
-import java.security.SecureRandom;
 import java.time.Instant;
 
 import com.googlecode.objectify.annotation.Entity;
@@ -9,7 +8,7 @@ import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Translate;
 
 /**
- * Represents an SupportRequest entity.
+ * Represents a SupportRequest entity.
  */
 @Entity
 @Index
@@ -18,19 +17,21 @@ public class SupportRequest extends BaseEntity {
     @Id
     private String id;
 
-    /** The foreign key to locate the Account object. Email of Request Creator */
     private String email;
 
     private String title;
 
     private String description;
 
-    /* Only accepts: 'submitted', 'pending', 'request_to_close', 'resolved' */
+    /* Only accepts: 'submitted', 'pending', 'request_to_close', 'closed' */
     private String status; 
 
-    private String response; // Admin's 
+    /* Only accepts: 'bug_report', 'new_feature', 'inquiry', 'others' */
+    private String category;
 
-    private Boolean hasNewChanges;  // For Admin's view
+    private String response;
+
+    private Boolean hasNewChanges;
 
     @Translate(InstantTranslatorFactory.class)
     private Instant modifiedAt;
@@ -43,13 +44,14 @@ public class SupportRequest extends BaseEntity {
         // required by Objectify
     }
 
-    public SupportRequest(String email, String title, String description, String status, String response, Boolean hasNewChanges) {
+    public SupportRequest(String email, String title, String description, String status, String category, String response, Boolean hasNewChanges) {
         this.setEmail(email);
         this.setTitle(title);
         this.setCreatedAt(Instant.now());
         this.setId(generateId(email, createdAt));
         this.setDescription(description);
         this.setStatus(status);
+        this.setCategory(category);
         this.setResponse(response);
         this.setHasNewChanges(hasNewChanges);
         this.setModifiedAt(Instant.now());
@@ -93,6 +95,14 @@ public class SupportRequest extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getResponse() {
