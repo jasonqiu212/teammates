@@ -2,6 +2,8 @@ package teammates.common.datatransfer.attributes;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import teammates.common.util.FieldValidator;
@@ -152,6 +154,14 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
 
     public void setModifiedAt(Instant modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    /**
+     * Sorts the list of support requests by createdAt, with the latest as the first element.
+     */
+    public static void sortByCreatedAt(List<SupportRequestAttributes> supportRequestAttributes) {
+        supportRequestAttributes.sort(Comparator.comparing(SupportRequestAttributes::getCreatedAt));
+        Collections.reverse(supportRequestAttributes);
     }
 
     @Override
