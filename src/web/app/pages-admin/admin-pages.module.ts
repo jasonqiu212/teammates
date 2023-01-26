@@ -48,6 +48,11 @@ const routes: Routes = [
         .then((m: any) => m.AdminNotificationsPageModule),
   },
   {
+    path: 'requests',
+    loadChildren: () => import('./admin-support-requests-page/admin-support-requests-page.module')
+        .then((m: any) => m.AdminSupportRequestsPageModule),
+  },
+  {
     path: 'logs',
     data: {
       isAdmin: true,
