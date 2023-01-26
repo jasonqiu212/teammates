@@ -61,7 +61,7 @@ public final class SupportRequestsDb extends EntitiesDb<SupportRequest, SupportR
     @Override
     boolean hasExistingEntities(SupportRequestAttributes entityToCreate) {
         Key<SupportRequest> keyToFind = Key.create(SupportRequest.class,
-                SupportRequest.generateId(entityToCreate.getEmail(), entityToCreate.getCreatedAt()));
+                entityToCreate.getId());
         return !load().filterKey(keyToFind).keys().list().isEmpty();
     }
 

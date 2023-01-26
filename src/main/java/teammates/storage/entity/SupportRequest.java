@@ -1,6 +1,7 @@
 package teammates.storage.entity;
 
 import java.time.Instant;
+import java.util.UUID;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -48,10 +49,10 @@ public class SupportRequest extends BaseEntity {
         this.setEmail(email);
         this.setTitle(title);
         this.setCreatedAt(Instant.now());
-        this.setId(generateId(email, createdAt));
+        this.setId(UUID.randomUUID().toString());
         this.setDescription(description);
-        this.setStatus(status);
-        this.setCategory(category);
+        this.setSupportRequestStatus(status);
+        this.setSupportRequestCategory(category);
         this.setResponse(response);
         this.setHasNewChanges(hasNewChanges);
         this.setModifiedAt(Instant.now());
@@ -89,19 +90,19 @@ public class SupportRequest extends BaseEntity {
         this.description = description.trim();
     }
 
-    public String getStatus() {
+    public String getSupportRequestStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setSupportRequestStatus(String status) {
         this.status = status;
     }
 
-    public String getCategory() {
+    public String getSupportRequestCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setSupportRequestCategory(String category) {
         this.category = category;
     }
 
@@ -135,13 +136,5 @@ public class SupportRequest extends BaseEntity {
 
     public void setModifiedAt(Instant modifiedAt) {
         this.modifiedAt = modifiedAt;
-    }
-
-    /**
-     * Generates an unique ID for the support request.
-     */
-    public static String generateId(String email, Instant createdAt) {
-        // Format: email%createdAt e.g., adam@gmail.com%2022-06-21T19:34:50.630Z
-        return email + '%' + createdAt.toString();
     }
 }

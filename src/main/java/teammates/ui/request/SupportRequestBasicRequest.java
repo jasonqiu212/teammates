@@ -1,13 +1,9 @@
-package teammates.ui.output;
+package teammates.ui.request;
 
-import teammates.common.datatransfer.attributes.SupportRequestAttributes;
 import teammates.common.datatransfer.attributes.SupportRequestAttributes.SupportRequestCategory;
 import teammates.common.datatransfer.attributes.SupportRequestAttributes.SupportRequestStatus;
 
-/**
- * The API Output format of a support request.
- */
-public class SupportRequestData extends ApiOutput {
+public class SupportRequestBasicRequest extends BasicRequest {
 
     private String id;
     private String email;
@@ -20,17 +16,16 @@ public class SupportRequestData extends ApiOutput {
     private long createdAt;
     private long modifiedAt;
 
-    public SupportRequestData(SupportRequestAttributes supportRequestAttributes) {
-        this.id = supportRequestAttributes.getId();
-        this.email = supportRequestAttributes.getEmail();
-        this.title = supportRequestAttributes.getTitle();
-        this.description = supportRequestAttributes.getDescription();
-        this.status = supportRequestAttributes.getSupportRequestStatus();
-        this.category = supportRequestAttributes.getSupportRequestCategory();
-        this.response = supportRequestAttributes.getResponse();
-        this.hasNewChanges = supportRequestAttributes.getHasNewChanges();
-        this.createdAt = supportRequestAttributes.getCreatedAt().toEpochMilli();
-        this.modifiedAt = supportRequestAttributes.getModifiedAt().toEpochMilli();
+    @Override
+    public void validate() throws InvalidHttpRequestBodyException {
+        assertTrue(email != null, "email cannot be null");
+        assertTrue(title != null, "title cannot be null");
+        assertTrue(description != null, "description cannot be null");
+        assertTrue(status != null, "status cannot be null");
+        assertTrue(category != null, "category cannot be null");
+        assertTrue(response != null, "response cannot be null");
+        assertTrue(createdAt > 0L, "Created-at timestamp should be greater than zero");
+        assertTrue(modifiedAt > 0L, "Modified-at timestamp should be greater than zero");
     }
 
     public String getId() {
@@ -52,16 +47,16 @@ public class SupportRequestData extends ApiOutput {
     public SupportRequestStatus getSupportRequestStatus() {
         return this.status;
     }
-    
+
     public SupportRequestCategory getSupportRequestCategory() {
         return this.category;
     }
 
-    public String response() {
+    public String getResponse() {
         return this.response;
     }
 
-    public boolean gethasNewChanges() {
+    public boolean getHasNewChanges() {
         return this.hasNewChanges;
     }
 
@@ -72,4 +67,5 @@ public class SupportRequestData extends ApiOutput {
     public long getModifiedAt() {
         return this.modifiedAt;
     }
+    
 }
