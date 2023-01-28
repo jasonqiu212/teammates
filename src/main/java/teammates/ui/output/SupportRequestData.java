@@ -57,11 +57,11 @@ public class SupportRequestData extends ApiOutput {
         return this.category;
     }
 
-    public String response() {
+    public String getResponse() {
         return this.response;
     }
 
-    public boolean gethasNewChanges() {
+    public boolean getHasNewChanges() {
         return this.hasNewChanges;
     }
 

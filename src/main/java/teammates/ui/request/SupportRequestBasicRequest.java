@@ -32,40 +32,79 @@ public class SupportRequestBasicRequest extends BasicRequest {
         return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getTitle() {
         return this.title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public SupportRequestStatus getSupportRequestStatus() {
         return this.status;
     }
 
+    public void setSupportRequestStatus(SupportRequestStatus status) {
+        this.status = status;
+    }
+
     public SupportRequestCategory getSupportRequestCategory() {
         return this.category;
+    }
+
+    public void setSupportRequestCategory(SupportRequestCategory category) {
+        this.category = category;
     }
 
     public String getResponse() {
         return this.response;
     }
 
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
     public boolean getHasNewChanges() {
         return this.hasNewChanges;
+    }
+
+    public void setHasNewChanges(boolean hasNewChanges) {
+        this.hasNewChanges = hasNewChanges;
     }
 
     public long getCreatedAt() {
         return this.createdAt;
     }
+    
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public long getModifiedAt() {
         return this.modifiedAt;
     }
-    
+
+    public void setModifiedAt(long modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    } 
 }
