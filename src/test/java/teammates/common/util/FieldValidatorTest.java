@@ -781,4 +781,26 @@ public class FieldValidatorTest extends BaseTestCase {
         assertFalse(StringHelper.isMatching(googleId, FieldValidator.REGEX_GOOGLE_ID_NON_EMAIL));
     }
 
+    @Test
+    public void testGetInvalidityInfoForSupportRequestTitle_valid_returnEmptyString() {
+        assertEquals("", FieldValidator.getInvalidityInfoForSupportRequestTitle("valid title"));
+    }
+
+    @Test
+    public void testGetInvalidityInfoForSupportRequestTitle_inValid_returnErrorString() {
+        ______TS("Empty support request title");
+        assertEquals("The field 'support request title' is empty.",
+                FieldValidator.getInvalidityInfoForSupportRequestTitle(""));
+
+        ______TS("SupportRequest title exceeds maximum length");
+        String invalidSupportRequestTitle = StringHelperExtension.generateStringOfLength(
+                FieldValidator.SUPPORT_REQUEST_TITLE_MAX_LENGTH + 1);
+        assertEquals("\"" + invalidSupportRequestTitle + "\" is not acceptable to TEAMMATES as a/an "
+                        + "support request title because it is too long. "
+                        + "The value of a/an support request title should be no longer than "
+                        + FieldValidator.SUPPORT_REQUEST_TITLE_MAX_LENGTH
+                        + " characters. It should not be empty.",
+                FieldValidator.getInvalidityInfoForSupportRequestTitle(invalidSupportRequestTitle));
+    }
+
 }

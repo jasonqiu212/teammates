@@ -2113,5 +2113,55 @@
       "message": "<p>Deprecation happens in three minutes</p>",
       "shown": false
     }
+  },
+  "supportRequests": {
+    "supportRequest1": {
+      "id": "ef5c4b2b-2d78-426d-9707-12879a24754e",
+      "email": "alice@abc.com",
+      "title": "Pending, New Feature Support Request",
+      "description": "New feature support request that has been marked as 'pending' by admin.",
+      "status": "PENDING",
+      "category": "NEW_FEATURE",
+      "response": "",
+      "hasNewChanges": true,
+      "createdAt": "2011-01-01T00:00:00Z",
+      "modifiedAt": "2011-01-01T00:00:00Z"
+    },
+    "supportRequest2": {
+      "id": "834e7355-5796-4fdc-8e42-32502cb65bfb",
+      "email": "alice@abc.com",
+      "title": "Submitted, Bug Report Support Request",
+      "description": "Bug report that has been submitted by client and not yet seen by admin.",
+      "status": "SUBMITTED",
+      "category": "BUG_REPORT",
+      "response": "",
+      "hasNewChanges": true,
+      "createdAt": "2011-01-01T00:00:00Z",
+      "modifiedAt": "2011-10-11T00:00:00Z"
+    },
+    "supportRequest3": {
+      "id": "690b9ce2-7629-483b-8918-e60b840e9a89",
+      "email": "bob@xyz.com",
+      "title": "Inquiry, Request-to-close Support Request",
+      "description": "User requested to close the Inquiry Support Request.",
+      "status": "REQUEST_TO_CLOSE",
+      "category": "INQUIRY",
+      "response": "",
+      "hasNewChanges": false,
+      "createdAt": "2012-01-01T00:00:00Z",
+      "modifiedAt": "2012-03-01T00:00:00Z"
+    },
+    "supportRequest4": {
+      "id": "42623b96-e6a7-4c65-a11c-d3e11262b3f3",
+      "email": "carrie@xyz.com",
+      "title": "General (Others), closed Support Request",
+      "description": "General support request closed by Admin.",
+      "status": "CLOSED",
+      "category": "OTHERS",
+      "response": "",
+      "hasNewChanges": false,
+      "createdAt": "2021-03-10T00:00:00Z",
+      "modifiedAt": "2023-05-12T00:00:00Z"
+    }
   }
 }
