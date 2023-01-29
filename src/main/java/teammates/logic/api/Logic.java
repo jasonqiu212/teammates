@@ -25,6 +25,7 @@ import teammates.common.datatransfer.attributes.InstructorAttributes;
 import teammates.common.datatransfer.attributes.NotificationAttributes;
 import teammates.common.datatransfer.attributes.StudentAttributes;
 import teammates.common.datatransfer.attributes.StudentProfileAttributes;
+import teammates.common.datatransfer.attributes.SupportRequestAttributes;
 import teammates.common.datatransfer.attributes.UsageStatisticsAttributes;
 import teammates.common.exception.EnrollException;
 import teammates.common.exception.EntityAlreadyExistsException;
@@ -45,6 +46,7 @@ import teammates.logic.core.InstructorsLogic;
 import teammates.logic.core.NotificationsLogic;
 import teammates.logic.core.ProfilesLogic;
 import teammates.logic.core.StudentsLogic;
+import teammates.logic.core.SupportRequestsLogic;
 import teammates.logic.core.UsageStatisticsLogic;
 
 /**
@@ -70,6 +72,7 @@ public class Logic {
     final UsageStatisticsLogic usageStatisticsLogic = UsageStatisticsLogic.inst();
     final ProfilesLogic profilesLogic = ProfilesLogic.inst();
     final DataBundleLogic dataBundleLogic = DataBundleLogic.inst();
+    final SupportRequestsLogic supportRequestsLogic = SupportRequestsLogic.inst();
 
     Logic() {
         // prevent initialization
@@ -1700,6 +1703,34 @@ public class Logic {
      */
     public List<DeadlineExtensionAttributes> getDeadlineExtensionsPossiblyNeedingClosingEmail() {
         return deadlineExtensionsLogic.getDeadlineExtensionsPossiblyNeedingClosingEmail();
+    }
+
+    /**
+     * Creates a Support Request.
+     * 
+     * @throws InvalidParametersException
+     * @throws EntityAlreadyExistsException
+     */
+    public SupportRequestAttributes createSupportRequest(SupportRequestAttributes supportRequest)
+            throws InvalidParametersException, EntityAlreadyExistsException {
+        assert supportRequest != null;
+
+        return supportRequestsLogic.createSupportRequest(supportRequest);
+    }
+
+    /*
+     * Gets all support requests.
+     */
+    public List<SupportRequestAttributes> getAllSupportRequests() {
+        return supportRequestsLogic.getAllSupportRequests();
+    }
+
+    /*
+     * Gets all support requests for email.
+     */
+    public List<SupportRequestAttributes> getSupportRequestsForEmail(String email) {
+        assert email != null;
+        return supportRequestsLogic.getSupportRequestsForEmail(email);
     }
 
 }
