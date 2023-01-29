@@ -92,6 +92,12 @@ public final class ActionFactory {
         // NOTIFICATIONS APIs
         map(ResourceURIs.NOTIFICATIONS, GET, GetNotificationsAction.class);
 
+        // SUPPORT REQUEST APIs
+        map(ResourceURIs.SUPPORT_REQUEST, POST, CreateSupportRequestAction.class);
+
+        // SUPPORT REQUESTS APIs
+        map(ResourceURIs.SUPPORT_REQUESTS, GET, GetSupportRequestsAction.class);
+
         //SEARCH APIs
         map(ResourceURIs.SEARCH_INSTRUCTORS, GET, SearchInstructorsAction.class);
         map(ResourceURIs.SEARCH_STUDENTS, GET, SearchStudentsAction.class);

@@ -78,6 +78,16 @@ public final class FieldValidator {
                             .collect(Collectors.toList())
             );
 
+    // support request related
+    public static final String SUPPORT_REQUEST_TITLE_FIELD_NAME = "support request title";
+    public static final int SUPPORT_REQUEST_TITLE_MAX_LENGTH = 80;
+
+    public static final String SUPPORT_REQUEST_DESCRIPTION_FIELD_NAME = "support request description";
+    public static final int SUPPORT_REQUEST_DESCRIPTION_MAX_LENGTH = 500;
+
+    public static final String SUPPORT_REQUEST_RESPONSE_FIELD_NAME = "support request response";
+    public static final int SUPPORT_REQUEST_RESPONSE_MAX_LENGTH = 500;
+
     // others
     public static final String STUDENT_ROLE_COMMENTS_FIELD_NAME = "comments about a student enrolled in a course";
     public static final int STUDENT_ROLE_COMMENTS_MAX_LENGTH = 500;
@@ -873,6 +883,52 @@ public final class FieldValidator {
         }
 
         return errors;
+    }
+
+    /**
+     * Checks if the support request title is a non-null non-empty string.
+     *
+     * @param supportRequestTitle The title of the support request.
+     * @return An explanation of why the {@code supportRequestTitle} is not acceptable.
+     *         Returns an empty string "" if the {@code supportRequestTitle} is acceptable.
+     */
+    public static String getInvalidityInfoForSupportRequestTitle(String supportRequestTitle) {
+
+        assert supportRequestTitle != null : "Non-null value expected for Support Request title";
+
+        if (supportRequestTitle.isEmpty()) {
+            return getPopulatedEmptyStringErrorMessage(EMPTY_STRING_ERROR_INFO,
+                SUPPORT_REQUEST_TITLE_FIELD_NAME, SUPPORT_REQUEST_TITLE_MAX_LENGTH);
+        } else if (supportRequestTitle.length() > SUPPORT_REQUEST_TITLE_MAX_LENGTH) {
+            return getPopulatedErrorMessage(SIZE_CAPPED_NON_EMPTY_STRING_ERROR_MESSAGE, supportRequestTitle,
+                SUPPORT_REQUEST_TITLE_FIELD_NAME, REASON_TOO_LONG, SUPPORT_REQUEST_TITLE_MAX_LENGTH);
+        }
+
+        return "";
+    }
+
+    /**
+     * Checks if the given supportRequestDescription is a non-null string no longer than
+     * the specified length {@code SUPPORT_REQUEST_DESCRIPTION_MAX_LENGTH}. However, this string can be empty.
+     * @return An explanation of why the {@code supportRequestDescription} is not acceptable.
+     *         Returns an empty string "" if the {@code supportRequestDescription} is acceptable.
+     */
+    public static String getInvalidityInfoForSupportRequestDescription(String supportRequestDescription) {
+        return getValidityInfoForSizeCappedPossiblyEmptyString(SUPPORT_REQUEST_DESCRIPTION_FIELD_NAME,
+                                                               SUPPORT_REQUEST_DESCRIPTION_MAX_LENGTH,
+                                                               supportRequestDescription);
+    }
+
+    /**
+     * Checks if the given supportRequestResponse is a non-null string no longer than
+     * the specified length {@code SUPPORT_REQUEST_RESPONSE_MAX_LENGTH}. However, this string can be empty.
+     * @return An explanation of why the {@code supportRequestResponse} is not acceptable.
+     *         Returns an empty string "" if the {@code supportRequestResponse} is acceptable.
+     */
+    public static String getInvalidityInfoForSupportRequestResponse(String supportRequestResponse) {
+        return getValidityInfoForSizeCappedPossiblyEmptyString(SUPPORT_REQUEST_RESPONSE_FIELD_NAME,
+                                                               SUPPORT_REQUEST_RESPONSE_MAX_LENGTH,
+                                                               supportRequestResponse);
     }
 
     /**
