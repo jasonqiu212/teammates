@@ -418,14 +418,14 @@ export enum SortBy {
     NOTIFICATION_STYLE,
 
     /**
-     * The subject of support request.
+     * The title of support request.
      */
-    SUPPORT_REQUEST_SUBJECT,
+    SUPPORT_REQUEST_TITLE,
 
     /**
-     * The date of support request.
+     * The date/time for the creation of support request.
      */
-    SUPPORT_REQUEST_DATE,
+    SUPPORT_REQUEST_CREATE_TIME,
 
     /**
      * The category of support request.
