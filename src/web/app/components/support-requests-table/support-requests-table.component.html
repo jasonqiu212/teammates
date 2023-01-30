@@ -1,0 +1,185 @@
+<div
+  class="row"
+  *ngIf="supportRequestsTableRowModels.length > 0; else noSupportRequests"
+>
+  <div class="col-12">
+    <table
+      id="support-requests-table"
+      class="table table-responsive-lg table-striped table-bordered margin-bottom-0"
+    >
+      <thead>
+        <tr>
+          <th
+            id="sort-support-request-subject"
+            class="sortable-header"
+            (click)="
+              sortSupportRequestsTableRowModels(SortBy.SUPPORT_REQUEST_TITLE)
+            "
+          >
+            Title
+            <span class="fa-stack">
+              <i class="fas fa-sort"></i>
+              <i
+                class="fas fa-sort-down"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_TITLE &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.DESC
+                "
+              ></i>
+              <i
+                class="fas fa-sort-up"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_TITLE &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.ASC
+                "
+              ></i>
+            </span>
+          </th>
+          <th
+            id="sort-support-request-create-time"
+            class="sortable-header"
+            (click)="
+              sortSupportRequestsTableRowModels(
+                SortBy.SUPPORT_REQUEST_CREATE_TIME
+              )
+            "
+          >
+            Date
+            <span class="fa-stack">
+              <i class="fas fa-sort"></i>
+              <i
+                class="fas fa-sort-down"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_CREATE_TIME &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.DESC
+                "
+              ></i>
+              <i
+                class="fas fa-sort-up"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_CREATE_TIME &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.ASC
+                "
+              ></i>
+            </span>
+          </th>
+          <th
+            id="sort-support-request-category"
+            class="sortable-header"
+            (click)="
+              sortSupportRequestsTableRowModels(SortBy.SUPPORT_REQUEST_CATEGORY)
+            "
+          >
+            Category
+            <span class="fa-stack">
+              <i class="fas fa-sort"></i>
+              <i
+                class="fas fa-sort-down"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_CATEGORY &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.DESC
+                "
+              ></i>
+              <i
+                class="fas fa-sort-up"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_CATEGORY &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.ASC
+                "
+              ></i>
+            </span>
+          </th>
+          <th
+            id="sort-support-request-status"
+            class="sortable-header"
+            (click)="
+              sortSupportRequestsTableRowModels(SortBy.SUPPORT_REQUEST_STATUS)
+            "
+          >
+            Status
+            <span class="fa-stack">
+              <i class="fas fa-sort"></i>
+              <i
+                class="fas fa-sort-down"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_STATUS &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.DESC
+                "
+              ></i>
+              <i
+                class="fas fa-sort-up"
+                *ngIf="
+                  supportRequestsTableRowModelsSortBy ===
+                    SortBy.SUPPORT_REQUEST_STATUS &&
+                  supportRequestsTableRowModelsSortOrder === SortOrder.ASC
+                "
+              ></i>
+            </span>
+          </th>
+          <th class="text-center">Action(s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let supportRequestsTableRowModel of supportRequestsTableRowModels;
+            let idx = index
+          "
+        >
+          <td class="text-break">
+            {{ supportRequestsTableRowModel.supportRequest.title }}
+          </td>
+          <td class="text-break">
+            {{ supportRequestsTableRowModel.supportRequest.createdAt }}
+          </td>
+          <td class="text-break">
+            {{ supportRequestsTableRowModel.supportRequest.category }}
+          </td>
+          <td class="text-break">
+            {{ supportRequestsTableRowModel.supportRequest.status }}
+          </td>
+          <!-- <td>
+            <span
+              class="ngb-tooltip-class"
+              [ngbTooltip]="
+                supportRequestsTableRowModel.feedbackSession
+                  .submissionStartTimestamp
+                  | formatDateDetail
+                    : supportRequestsTableRowModel.feedbackSession.timeZone
+              "
+              >test</span
+            >
+          </td> -->
+          <td class="actions-cell">
+            <div class="d-flex">
+              <a
+                tmRouterLink="/web/instructor/supportRequests/view"
+                [queryParams]="{
+                  courseid:
+                    supportRequestsTableRowModel.feedbackSession.courseId,
+                  fsname:
+                    supportRequestsTableRowModel.feedbackSession
+                      .feedbackSessionName,
+                  editingMode: true
+                }"
+              >
+                <button type="button" class="btn btn-light btn-sm">Edit</button>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #noSupportRequests>
+  <div class="no-support-requests-message">There are no support requests.</div>
+</ng-template>
