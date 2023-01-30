@@ -1,3 +1,25 @@
-<div>
-  <h1>Test</h1>
+<h1>Support Requests</h1>
+
+<div id="course-tab" class="card">
+  <tm-loading-retry
+    [shouldShowRetry]="supportRequestsTabModel.hasLoadingFailed"
+    [message]="'Error loading support requests'"
+    (retryEvent)="loadSupportRequests()"
+  >
+    <tm-support-requests-table
+      *tmIsLoading="!supportRequestsTabModel.hasPopulated"
+      [supportRequestsTableRowModels]="
+        supportRequestsTabModel.supportRequestsTableRowModels
+      "
+      [supportRequestsTableRowModelsSortBy]="
+        supportRequestsTabModel.supportRequestsTableRowModelsSortBy
+      "
+      [supportRequestsTableRowModelsSortOrder]="
+        supportRequestsTabModel.supportRequestsTableRowModelsSortOrder
+      "
+      (sortSupportRequestsTableRowModelsEvent)="
+        sortSupportRequestsTableRowModelsEvent($event)
+      "
+    ></tm-support-requests-table>
+  </tm-loading-retry>
 </div>
