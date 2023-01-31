@@ -37,7 +37,7 @@ export class SupportRequestsTableComponent {
   sortSupportRequestsTableRowModelsEvent: EventEmitter<SortBy> =
     new EventEmitter();
 
-  constructor() {} // private simpleModalService: SimpleModalService // private ngbModal: NgbModal,
+  constructor() {}
 
   /**
    * Sorts the list of support request row.
