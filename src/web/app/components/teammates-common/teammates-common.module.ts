@@ -28,6 +28,7 @@ import { GenderFormatPipe } from "./student-profile-gender.pipe";
 import { SubmissionStatusNamePipe } from "./submission-status-name.pipe";
 import { SubmissionStatusTooltipPipe } from "./submission-status-tooltip.pipe";
 import { SupportRequestCategoryDescriptionPipe } from "./support-request-category-description.pipe";
+import { SupportRequestStatusClassPipe } from "./support-request-status-class.pipe";
 import { SupportRequestStatusDescriptionPipe } from "./support-request-status-description.pipe";
 import { ViewPhotoPopoverComponent } from "./view-photo-popover/view-photo-popover.component";
 import {
@@ -74,6 +75,7 @@ import {
     NotificationStyleClassPipe,
     SupportRequestCategoryDescriptionPipe,
     SupportRequestStatusDescriptionPipe,
+    SupportRequestStatusClassPipe,
   ],
   exports: [
     EnumToArrayPipe,
@@ -102,6 +104,7 @@ import {
     NotificationStyleClassPipe,
     SupportRequestCategoryDescriptionPipe,
     SupportRequestStatusDescriptionPipe,
+    SupportRequestStatusClassPipe,
   ],
 })
 export class TeammatesCommonModule {}

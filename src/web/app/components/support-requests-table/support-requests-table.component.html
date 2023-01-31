@@ -145,7 +145,13 @@
                 | supportRequestCategoryDescription
             }}
           </td>
-          <td class="text-break">
+          <td
+            class="text-break"
+            [ngClass]="
+              supportRequestsTableRowModel.supportRequest.status
+                | supportRequestStatusClass
+            "
+          >
             {{
               supportRequestsTableRowModel.supportRequest.status
                 | supportRequestStatusDescription
