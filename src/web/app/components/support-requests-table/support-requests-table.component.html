@@ -140,10 +140,16 @@
             {{ supportRequestsTableRowModel.supportRequest.createdAt }}
           </td>
           <td class="text-break">
-            {{ supportRequestsTableRowModel.supportRequest.category }}
+            {{
+              supportRequestsTableRowModel.supportRequest.category
+                | supportRequestCategoryDescription
+            }}
           </td>
           <td class="text-break">
-            {{ supportRequestsTableRowModel.supportRequest.status }}
+            {{
+              supportRequestsTableRowModel.supportRequest.status
+                | supportRequestStatusDescription
+            }}
           </td>
           <!-- <td>
             <span
