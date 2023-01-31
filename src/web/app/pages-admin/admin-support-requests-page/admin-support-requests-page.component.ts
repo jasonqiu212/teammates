@@ -37,6 +37,8 @@ export class AdminSupportRequestsPageComponent {
     SupportRequestsTableColumn;
   SortBy: typeof SortBy = SortBy;
 
+  guessTimezone = "UTC";
+
   // data
   supportRequestsTabModel: SupportRequestsTabModel = {
     supportRequestsTableRowModels: [],

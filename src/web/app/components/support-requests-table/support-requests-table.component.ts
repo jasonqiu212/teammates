@@ -31,6 +31,9 @@ export class SupportRequestsTableComponent {
     SortBy.SUPPORT_REQUEST_CREATE_TIME;
 
   @Input()
+  guessTimezone = "UTC";
+
+  @Input()
   supportRequestsTableRowModelsSortOrder: SortOrder = SortOrder.ASC;
 
   @Output()

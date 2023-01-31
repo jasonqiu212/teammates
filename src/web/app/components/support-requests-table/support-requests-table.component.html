@@ -136,8 +136,18 @@
           <td class="text-break">
             {{ supportRequestsTableRowModel.supportRequest.title }}
           </td>
-          <td class="text-break">
-            {{ supportRequestsTableRowModel.supportRequest.createdAt }}
+          <td>
+            <span
+              class="ngb-tooltip-class"
+              [ngbTooltip]="
+                supportRequestsTableRowModel.supportRequest.createdAt
+                  | formatDateDetail : guessTimezone
+              "
+              >{{
+                supportRequestsTableRowModel.supportRequest.createdAt
+                  | formatDateDetail : guessTimezone
+              }}</span
+            >
           </td>
           <td class="text-break">
             {{
@@ -157,18 +167,6 @@
                 | supportRequestStatusDescription
             }}
           </td>
-          <!-- <td>
-            <span
-              class="ngb-tooltip-class"
-              [ngbTooltip]="
-                supportRequestsTableRowModel.feedbackSession
-                  .submissionStartTimestamp
-                  | formatDateDetail
-                    : supportRequestsTableRowModel.feedbackSession.timeZone
-              "
-              >test</span
-            >
-          </td> -->
           <td class="actions-cell">
             <div class="d-flex">
               <!-- <a
