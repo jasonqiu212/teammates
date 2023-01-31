@@ -69,26 +69,24 @@ export class AdminSupportRequestsPageComponent {
       isAjaxSuccess: false,
       hasLoadingFailed: false,
     };
-    this.supportRequestService
-      .getSupportRequestsForEmail("alice@abc.com")
-      .subscribe({
-        next: (response: SupportRequests) => {
-          response.supportRequests.forEach((supportRequest: SupportRequest) => {
-            const m: SupportRequestsTableRowModel = {
-              supportRequest,
-            };
-            this.supportRequestsTabModel.supportRequestsTableRowModels.push(m);
-          });
-          this.supportRequestsTabModel.hasPopulated = true;
-          if (!this.supportRequestsTabModel.isAjaxSuccess) {
-            this.supportRequestsTabModel.isAjaxSuccess = true;
-          }
-        },
-        error: (resp: ErrorMessageOutput) => {
-          this.supportRequestsTabModel.hasLoadingFailed = true;
-          this.statusMessageService.showErrorToast(resp.error.message);
-        },
-      });
+    this.supportRequestService.getSupportRequests().subscribe({
+      next: (response: SupportRequests) => {
+        response.supportRequests.forEach((supportRequest: SupportRequest) => {
+          const m: SupportRequestsTableRowModel = {
+            supportRequest,
+          };
+          this.supportRequestsTabModel.supportRequestsTableRowModels.push(m);
+        });
+        this.supportRequestsTabModel.hasPopulated = true;
+        if (!this.supportRequestsTabModel.isAjaxSuccess) {
+          this.supportRequestsTabModel.isAjaxSuccess = true;
+        }
+      },
+      error: (resp: ErrorMessageOutput) => {
+        this.supportRequestsTabModel.hasLoadingFailed = true;
+        this.statusMessageService.showErrorToast(resp.error.message);
+      },
+    });
   }
 
   /**
