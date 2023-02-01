@@ -11,7 +11,7 @@ import teammates.common.util.SanitizationHelper;
 import teammates.storage.entity.SupportRequest;
 
 /**
- * The data transfer object for {@link StudentProfile} entities.
+ * The data transfer object for {@link SupportRequest} entities.
  */
 public final class SupportRequestAttributes extends EntityAttributes<SupportRequest> {
 
@@ -40,7 +40,8 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
     }
 
     /**
-     * Gets the {@link SupportRequestAttributes} instance of the given {@link SupportRequest}.
+     * Gets the {@link SupportRequestAttributes} instance of the given
+     * {@link SupportRequest}.
      */
     public static SupportRequestAttributes valueOf(SupportRequest sr) {
         SupportRequestAttributes supportRequestAttributes = new SupportRequestAttributes(sr.getId());
@@ -55,9 +56,9 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
             supportRequestAttributes.description = sr.getDescription();
         }
 
-        supportRequestAttributes.status = SupportRequestStatus.getSupportRequestStatusEnumValue(sr.getSupportRequestStatus());
+        supportRequestAttributes.status = sr.getSupportRequestStatus();
 
-        supportRequestAttributes.category = SupportRequestCategory.getSupportRequestCategoryEnumValue(sr.getSupportRequestCategory());
+        supportRequestAttributes.category = sr.getSupportRequestCategory();
 
         if (sr.getResponse() != null) {
             supportRequestAttributes.response = sr.getResponse();
@@ -84,7 +85,7 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
 
     @Override
     public SupportRequest toEntity() {
-        return new SupportRequest(email, title, description, status.name().toLowerCase(), category.name().toLowerCase(), response, hasNewChanges);
+        return new SupportRequest(email, title, description, status, category, response, hasNewChanges);
     }
 
     public String getId() {
@@ -164,7 +165,8 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
     }
 
     /**
-     * Sorts the list of support requests by createdAt, with the latest as the first element.
+     * Sorts the list of support requests by createdAt, with the latest as the first
+     * element.
      */
     public static void sortByCreatedAt(List<SupportRequestAttributes> supportRequestAttributes) {
         supportRequestAttributes.sort(Comparator.comparing(SupportRequestAttributes::getCreatedAt));
@@ -219,7 +221,7 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
     public enum SupportRequestStatus {
         SUBMITTED,
         PENDING,
-        REQUEST_TO_CLOSE, 
+        REQUEST_TO_CLOSE,
         CLOSED;
 
         public static SupportRequestStatus getSupportRequestStatusEnumValue(String status) {
@@ -230,9 +232,9 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
             }
         }
     }
-    
+
     /*
-     * Represents the category of the Support Request. 
+     * Represents the category of the Support Request.
      */
     public enum SupportRequestCategory {
         BUG_REPORT,
@@ -250,8 +252,24 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
             } catch (IllegalArgumentException e) {
                 return SupportRequestCategory.OTHERS;
             }
-            
+
         }
+    }
+
+    /**
+     * Returns a {@link UpdateOptions.Builder} to build {@link UpdateOptions} for a
+     * support request.
+     */
+    public static UpdateOptions.Builder updateOptionsBuilder(String id) {
+        return new UpdateOptions.Builder(id);
+    }
+
+    /**
+     * Returns a {@link UpdateOptions.Builder} to build on top of
+     * {@code updateOptions}.
+     */
+    public static UpdateOptions.Builder updateOptionsBuilder(UpdateOptions updateOptions) {
+        return new UpdateOptions.Builder(updateOptions);
     }
 
     /**
@@ -276,7 +294,8 @@ public final class SupportRequestAttributes extends EntityAttributes<SupportRequ
     }
 
     /**
-     * Helper class to specific the fields to update in {@link SupportRequestAttributes}.
+     * Helper class to specific the fields to update in
+     * {@link SupportRequestAttributes}.
      */
     public static class UpdateOptions {
         private String id;

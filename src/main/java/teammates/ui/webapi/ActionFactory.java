@@ -94,6 +94,7 @@ public final class ActionFactory {
 
         // SUPPORT REQUEST APIs
         map(ResourceURIs.SUPPORT_REQUEST, POST, CreateSupportRequestAction.class);
+        map(ResourceURIs.SUPPORT_REQUEST, PUT, UpdateSupportRequestAction.class);
 
         // SUPPORT REQUESTS APIs
         map(ResourceURIs.SUPPORT_REQUESTS, GET, GetSupportRequestsAction.class);
@@ -189,7 +190,8 @@ public final class ActionFactory {
     }
 
     /**
-     * Returns the matching {@link Action} object for the URI and method in {@code req}.
+     * Returns the matching {@link Action} object for the URI and method in
+     * {@code req}.
      */
     public static Action getAction(HttpServletRequest req, String method) throws ActionMappingException {
         String uri = req.getRequestURI();
@@ -204,8 +206,7 @@ public final class ActionFactory {
             throw new ActionMappingException("Resource with URI " + uri + " is not found.", HttpStatus.SC_NOT_FOUND);
         }
 
-        Class<? extends Action> controllerClass =
-                ACTION_MAPPINGS.getOrDefault(uri, new HashMap<>()).get(method);
+        Class<? extends Action> controllerClass = ACTION_MAPPINGS.getOrDefault(uri, new HashMap<>()).get(method);
 
         if (controllerClass == null) {
             throw new ActionMappingException("Method [" + method + "] is not allowed for URI " + uri + ".",
