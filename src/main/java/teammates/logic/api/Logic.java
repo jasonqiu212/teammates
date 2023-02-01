@@ -1733,4 +1733,20 @@ public class Logic {
         return supportRequestsLogic.getSupportRequestsForEmail(email);
     }
 
+    /**
+     * Updates a support request.
+     *
+     * <p>Preconditions:</p>
+     * * All parameters are non-null.
+     *
+     * @return the updated support request
+     * @throws InvalidParametersException if the updated support request is not valid
+     * @throws EntityDoesNotExistException if the support request to update does not exist
+     */
+    public SupportRequestAttributes updateSupportRequest(SupportRequestAttributes.UpdateOptions updateOptions) 
+            throws InvalidParametersException, EntityDoesNotExistException {
+        assert updateOptions != null;
+
+        return supportRequestsLogic.updateSupportRequest(updateOptions);
+    }
 }
