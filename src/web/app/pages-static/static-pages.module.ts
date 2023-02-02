@@ -65,6 +65,10 @@ const routes: Routes = [
     loadChildren: () => import('./support-request-page/support-request-page.module').then((m: any) => m.SupportRequestPageModule),
   },
   {
+    path: 'edit-support-request',
+    loadChildren: () => import('./edit-support-request-page/edit-support-request-page.module').then((m: any) => m.EditSupportRequestPageModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'home',
