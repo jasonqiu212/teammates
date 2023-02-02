@@ -44,6 +44,10 @@ export class InstructorPageComponent implements OnInit {
       display: 'Notifications',
     },
     {
+      url: '/web/instructor/support-request',
+      display: 'Support Request',
+    },
+    {
       url: '/web/instructor/help',
       display: 'Help',
     },
