@@ -52,6 +52,11 @@ const routes: Routes = [
         .then((m: any) => m.StudentNotificationsPageModule),
   },
   {
+    path: 'support-request',
+    loadChildren: () => import('./student-support-request-page/student-support-request-page.module')
+        .then((m: any) => m.StudentSupportRequestPageModule),
+  },
+  {
     path: 'help',
     loadChildren: () => import('../pages-help/student-help-page/student-help-page.module')
         .then((m: any) => m.StudentHelpPageModule),

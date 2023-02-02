@@ -32,6 +32,10 @@ export class StudentPageComponent implements OnInit {
       display: 'Notifications',
     },
     {
+      url: '/web/student/support-request',
+      display: 'Support Request',
+    },
+    {
       url: '/web/student/help',
       display: 'Help',
     },
