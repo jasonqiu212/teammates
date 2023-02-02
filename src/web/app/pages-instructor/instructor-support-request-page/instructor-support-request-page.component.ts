@@ -6,6 +6,7 @@ import { ErrorMessageOutput } from '../../error-message-output';
 import { SupportRequestFormMode, SupportRequestFormModel } from '../../components/support-request-edit-form/support-request-edit-form-model';
 import { StatusMessageService } from 'src/web/services/status-message.service';
 import { AuthService } from 'src/web/services/auth.service';
+import { LinkService } from 'src/web/services/link.service';
 
 @Component({
   selector: 'tm-instructor-support-request-page',
@@ -22,12 +23,17 @@ export class InstructorSupportRequestPageComponent implements OnInit {
   email = "";
   formMode: SupportRequestFormMode = SupportRequestFormMode.USER_ADD;
 
+  successMsg: string[] = [];
+  private SUCCESSFUL_CREATE_MESSAGE: string[] = ["Successfully submitted a SupportRequest!", "Please save this link to view/make updates to your support request:"]; 
+
   constructor(private supportRequestService: SupportRequestService,
               private statusMessageService: StatusMessageService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private linkService: LinkService) { }
 
   ngOnInit(): void {
     this.formMode = SupportRequestFormMode.USER_ADD;
+    this.successMsg = [];
 
     this.isLoading = true;
     this.email = "";
@@ -63,8 +69,10 @@ export class InstructorSupportRequestPageComponent implements OnInit {
 
     this.isLoading = true;
     this.supportRequestService.createSupportRequest(req).subscribe({
-      next: (_sr: SupportRequest) => {
-        this.statusMessageService.showSuccessToast("Successfully submitted a Support Request");
+      next: (sr: SupportRequest) => {
+        let sr_url = this.linkService.generateEditSupportRequestUrl(sr.id);
+        this.successMsg = this.SUCCESSFUL_CREATE_MESSAGE
+        this.successMsg.push(sr_url);
       },
       error: (err: ErrorMessageOutput) => {
         this.statusMessageService.showErrorToast(err.error.message);
@@ -73,5 +81,9 @@ export class InstructorSupportRequestPageComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  onDismissSuccessMessage(): void {
+    this.successMsg = [];
   }
 }
