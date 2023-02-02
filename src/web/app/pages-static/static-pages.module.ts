@@ -61,6 +61,10 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'support-request',
+    loadChildren: () => import('./support-request-page/support-request-page.module').then((m: any) => m.SupportRequestPageModule),
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'home',
