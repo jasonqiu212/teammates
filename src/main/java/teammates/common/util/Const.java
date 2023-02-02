@@ -272,6 +272,7 @@ public final class Const {
         public static final String ADMIN_TIMEZONE_PAGE = ADMIN_PAGE + "/timezone";
         public static final String ADMIN_LOGS_PAGE = ADMIN_PAGE + "/logs";
         public static final String ADMIN_NOTIFICATIONS_PAGE = ADMIN_PAGE + "/notifications";
+        public static final String ADMIN_SUPPORT_REQUESTS_PAGE = ADMIN_PAGE + "/requests";
 
         public static final String MAINTAINER_HOME_PAGE = MAINTAINER_PAGE + "/home";
 
