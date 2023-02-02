@@ -1,0 +1,45 @@
+<div class="user-submission-section">
+  <div class="one-line-field form-group">
+    <label class="form-label">Email:</label>
+    <input type="text" [(ngModel)]="formModel.email" class="form-control" [disabled]="formMode === SupportRequestFormMode.ADMIN_EDIT">
+  </div>
+
+  <div class="one-line-field form-group">
+    <label class="form-label">Title:</label>
+    <input type="text" [(ngModel)]="formModel.title" class="form-control" [disabled]="formMode === SupportRequestFormMode.ADMIN_EDIT">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Category:</label>
+    <select class="category-dropdown" [(ngModel)]="this.formModel.category" [disabled]="formMode === SupportRequestFormMode.ADMIN_EDIT">
+      <option *ngFor="let c of categories" [value]="c"> 
+        {{ enumToOption(c) }} 
+      </option>
+    </select>
+  </div>
+  <br/>
+
+  <div class="form-group">
+    <label class="form-label">Description:</label>
+    <textarea [(ngModel)]="formModel.description" class="form-control" style="height: 100px;" [disabled]="formMode === SupportRequestFormMode.ADMIN_EDIT"></textarea>
+  </div>
+</div>
+
+<div class="admin-response-section form-group" *ngIf="formMode !== SupportRequestFormMode.USER_ADD">
+    <div style="display: flex; justify-content: space-between; margin: 10px; align-items: flex-end;">
+      <label class="form-label">Response:</label>
+      <select class="status-dropdown" [(ngModel)]="this.formModel.status">
+        <option class="status-option" [value]="statuses[0]"> {{ enumToOption(statuses[0]) }} </option>
+        <option [disabled]="formMode !== SupportRequestFormMode.ADMIN_EDIT" class="status-option" [value]="statuses[1]"> {{ enumToOption(statuses[1]) }} </option>
+        <option [disabled]="formMode !== SupportRequestFormMode.USER_EDIT" class="status-option" [value]="statuses[2]"> {{ enumToOption(statuses[2]) }} </option>
+        <option [disabled]="formMode !== SupportRequestFormMode.ADMIN_EDIT" class="status-option" [value]="statuses[3]"> {{ enumToOption(statuses[3]) }} </option>
+      </select>
+    </div>
+    
+    <textarea [(ngModel)]="formModel.response" class="form-control" style="height: 100px;" [disabled]="formMode === SupportRequestFormMode.USER_EDIT"></textarea>
+</div>
+
+<div  style="display: flex; justify-content: center;">
+  <button *ngIf="formMode === SupportRequestFormMode.USER_ADD" (click)="onCreate()" class="btn btn-success">SUBMIT</button>
+  <button *ngIf="formMode !== SupportRequestFormMode.USER_ADD" (click)="onUpdate()" class="btn btn-success">EDIT</button>
+</div>
