@@ -95,6 +95,7 @@ public final class ActionFactory {
         // SUPPORT REQUEST APIs
         map(ResourceURIs.SUPPORT_REQUEST, POST, CreateSupportRequestAction.class);
         map(ResourceURIs.SUPPORT_REQUEST, PUT, UpdateSupportRequestAction.class);
+        map(ResourceURIs.SUPPORT_REQUEST, GET, GetSupportRequestAction.class);
 
         // SUPPORT REQUESTS APIs
         map(ResourceURIs.SUPPORT_REQUESTS, GET, GetSupportRequestsAction.class);

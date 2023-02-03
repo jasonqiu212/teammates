@@ -1725,6 +1725,15 @@ public class Logic {
         return supportRequestsLogic.getAllSupportRequests();
     }
 
+    /**
+     * Gets a support request by ID.
+     *
+     * @return Null if no match found.
+     */
+    public SupportRequestAttributes getSupportRequest(String supportRequestId) {
+        return supportRequestsLogic.getSupportRequest(supportRequestId);
+    }
+
     /*
      * Gets all support requests for email.
      */

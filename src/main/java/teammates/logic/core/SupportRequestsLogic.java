@@ -40,6 +40,15 @@ public final class SupportRequestsLogic {
     }
 
     /**
+     * Gets support requests associated with the {@code supportRequestId}.
+     *
+     * @return null if no match found.
+     */
+    public SupportRequestAttributes getSupportRequest(String supportRequestId) {
+        return supportRequestsDb.getSupportRequest(supportRequestId);
+    }
+
+    /**
      * Creates a support request.
      * 
      * @return the create support request.

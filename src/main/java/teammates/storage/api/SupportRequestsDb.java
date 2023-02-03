@@ -42,6 +42,15 @@ public final class SupportRequestsDb extends EntitiesDb<SupportRequest, SupportR
         return supportRequestAttributes;
     }
 
+    /**
+     * Gets a support request by its unique ID.
+     */
+    public SupportRequestAttributes getSupportRequest(String supportRequestId) {
+        assert supportRequestId != null;
+
+        return supportRequestId.isEmpty() ? null : makeAttributesOrNull(getSupportRequestEntity(supportRequestId));
+    }
+
     public List<SupportRequestAttributes> getSupportRequestsForEmail(String email) {
         assert email != null;
 
