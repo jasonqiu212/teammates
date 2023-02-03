@@ -96,7 +96,7 @@ export class SupportRequestEditFormComponent implements OnInit {
                 response: "Please provide more information!",
                 hasNewChanges: false,
                 createdAt: 1,
-                modifiedAt: 1,
+                modifiedAt: new Date().getTime(),
             }
         }
     }

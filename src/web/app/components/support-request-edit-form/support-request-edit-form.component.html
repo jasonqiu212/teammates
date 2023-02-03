@@ -23,6 +23,12 @@
     <label class="form-label">Description:</label>
     <textarea [(ngModel)]="formModel.description" class="form-control" style="height: 100px;" [disabled]="formMode === SupportRequestFormMode.ADMIN_EDIT"></textarea>
   </div>
+
+  <div class="form-group" *ngIf="formMode !== SupportRequestFormMode.USER_ADD">
+    <small style="color: grey; font-size: small;">Created on: {{ formModel.createdAt | date:'EEE, dd MMM, yyyy, h:mma' }} </small>
+    <br>
+    <small style="color: grey; font-size: small;" *ngIf="formModel.createdAt !== formModel.modifiedAt">Last Modified: {{ formModel.modifiedAt | date:'EEE, dd MMM, yyyy, h:mma' }}</small>
+  </div>
 </div>
 
 <div class="admin-response-section form-group" *ngIf="formMode !== SupportRequestFormMode.USER_ADD">
