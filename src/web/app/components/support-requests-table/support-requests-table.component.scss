@@ -1,0 +1,18 @@
+.no-support-requests-message {
+  padding: 10px;
+  text-align: center;
+}
+
+@media (min-width: 1200px) {
+  .actions-cell {
+    min-width: 100px;
+  }
+}
+
+.sortable-header {
+  cursor: pointer;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
+}

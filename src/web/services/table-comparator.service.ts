@@ -166,6 +166,10 @@ export class TableComparatorService {
       case SortBy.RECIPIENT_NAME:
       case SortBy.LOG_TYPE:
       case SortBy.RESULT_VIEW_STATUS:
+      case SortBy.SUPPORT_REQUEST_TITLE:
+      case SortBy.SUPPORT_REQUEST_CREATE_TIME:
+      case SortBy.SUPPORT_REQUEST_CATEGORY:
+      case SortBy.SUPPORT_REQUEST_STATUS:
         return this.compareLexicographically(strA, strB, order);
       case SortBy.MCQ_RESPONSE_COUNT:
       case SortBy.MSQ_RESPONSE_COUNT:
