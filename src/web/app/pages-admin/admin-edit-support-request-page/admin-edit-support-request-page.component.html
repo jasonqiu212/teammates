@@ -1,0 +1,18 @@
+<div *ngIf="supportRequestId === ''">
+    <p class="align-center alert alert-danger">Support Request ID is invalid. Please check that the URL is correct!</p>
+</div>
+
+<div *ngIf="supportRequestId !== ''">
+    <ng-template #loadingSpinner>
+        <tm-ajax-loading [useBlueSpinner]="true"></tm-ajax-loading>
+    </ng-template>
+    <div *ngIf="!isLoading; else loadingSpinner">    
+        <h1 class="color-orange">Edit Support Request Response</h1>
+        <tm-support-request-edit-form
+            [supportRequestId]="this.supportRequestId" 
+            [formMode]="this.formMode"
+            (onUpdateSupportRequestEvent)="updateSupportRequest($event)"
+            >
+        </tm-support-request-edit-form>
+    </div>
+</div>

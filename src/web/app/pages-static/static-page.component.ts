@@ -41,6 +41,10 @@ export class StaticPageComponent implements OnInit {
       display: 'Terms',
     },
     {
+      url: '/web/front/support-request',
+      display: 'Support Request',
+    },
+    {
       display: 'Help',
       children: [
         {

@@ -148,6 +148,11 @@ const routes: Routes = [
         .then((m: any) => m.InstructorNotificationsPageModule),
   },
   {
+    path: 'support-request',
+    loadChildren: () => import('./instructor-support-request-page/instructor-support-request-page.module')
+        .then((m: any) => m.InstructorSupportRequestPageModule),
+  },
+  {
     path: 'help',
     loadChildren: () => import('../pages-help/instructor-help-page/instructor-help-page.module')
         .then((m: any) => m.InstructorHelpPageModule),

@@ -1,0 +1,45 @@
+.user-submission-section {
+    border: 2px solid orange;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+
+.admin-response-section {
+    background-color: rgb(229, 229, 229);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+
+.form-label {
+    font-weight: bolder;
+    color: grey;
+    min-width: 100px;
+    width: auto;
+    margin: 0px 5px 0px 0px;
+}
+
+.one-line-field {
+    display: flex;
+    align-items: center;
+}
+
+.form-group {
+    margin: 10px 0px;
+}
+
+.status-dropdown {
+    background-color: white;
+    border: 1px solid lightgrey;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.category-dropdown {
+    background-color: white;
+    border: 1px solid lightgrey;
+    padding: 5px;
+    margin: 0px;
+    border-radius: 5px;
+}

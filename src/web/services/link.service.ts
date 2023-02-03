@@ -19,6 +19,7 @@ export class LinkService {
   INSTRUCTOR_STUDENT_PROFILE_PAGE: string = '/instructor/courses/student/details';
   SESSIONS_SUBMISSION_PAGE: string = '/sessions/submission';
   SESSIONS_RESULT_PAGE: string = '/sessions/result';
+  EDIT_SUPPORT_REQUEST_PAGE: string = '/front/edit-support-request';
 
   constructor(private navigationService: NavigationService) {}
 
@@ -146,6 +147,21 @@ export class LinkService {
     this.filterEmptyParams(params);
     const encodedParams: string = this.navigationService.encodeParams(params);
     return `${frontendUrl}${this.URI_PREFIX}${this.SESSIONS_RESULT_PAGE}${encodedParams}`;
+  }
+
+  /**
+   * Generates a url for editting a support request.
+   */
+  generateEditSupportRequestUrl(srId: string): string {
+    const frontendUrl: string = window.location.origin;
+    const params: {
+      [key: string]: string,
+    } = {
+      supportRequestId: srId,
+    };
+    this.filterEmptyParams(params);
+    const encodedParams: string = this.navigationService.encodeParams(params);
+    return `${frontendUrl}${this.URI_PREFIX}${this.EDIT_SUPPORT_REQUEST_PAGE}${encodedParams}`;
   }
 
   /**
