@@ -75,10 +75,9 @@ public final class SupportRequestsDb extends EntitiesDb<SupportRequest, SupportR
         }
 
         SupportRequestAttributes newAttributes = makeAttributes(supportRequest);
-
         newAttributes.update(updateOptions);
-        newAttributes.sanitizeForSaving();
 
+        newAttributes.sanitizeForSaving();
         if (!newAttributes.isValid()) {
             throw new InvalidParametersException(newAttributes.getInvalidityInfo());
         }
@@ -99,7 +98,19 @@ public final class SupportRequestsDb extends EntitiesDb<SupportRequest, SupportR
             return newAttributes;
         }
 
-        saveEntity(newAttributes.toEntity());
+        supportRequest.setEmail(newAttributes.getEmail());
+        supportRequest.setTitle(newAttributes.getTitle());
+        supportRequest.setDescription(newAttributes.getDescription());
+        supportRequest.setSupportRequestStatus(newAttributes.getSupportRequestStatus());
+        supportRequest.setSupportRequestCategory(newAttributes.getSupportRequestCategory());
+        supportRequest.setResponse(newAttributes.getResponse());
+        supportRequest.setHasNewChanges(newAttributes.getHasNewChanges());
+        supportRequest.setModifiedAt(newAttributes.getModifiedAt());
+
+        saveEntity(supportRequest);
+
+        newAttributes = makeAttributes(supportRequest);
+
         return newAttributes;
     }
 
