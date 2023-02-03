@@ -187,6 +187,7 @@ public final class Const {
         public static final String NOTIFICATION_IS_FETCHING_ALL = "isfetchingall";
         public static final String NOTFICATION_END_TIME = "endtime";
 
+        public static final String SUPPORT_REQUEST_ID = "supportrequestid";
         public static final String SUPPORT_REQUEST_EMAIL = "email";
     }
 

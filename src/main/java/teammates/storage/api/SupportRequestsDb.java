@@ -8,8 +8,11 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.LoadType;
 
 import teammates.common.datatransfer.attributes.SupportRequestAttributes;
+import teammates.common.datatransfer.attributes.SupportRequestAttributes.SupportRequestCategory;
+import teammates.common.datatransfer.attributes.SupportRequestAttributes.SupportRequestStatus;
+import teammates.common.exception.EntityDoesNotExistException;
+import teammates.common.exception.InvalidParametersException;
 import teammates.storage.entity.SupportRequest;
-
 
 /**
  * Handles CRUD operations for support requests.
@@ -20,7 +23,7 @@ import teammates.storage.entity.SupportRequest;
 public final class SupportRequestsDb extends EntitiesDb<SupportRequest, SupportRequestAttributes> {
 
     private static final SupportRequestsDb instance = new SupportRequestsDb();
-    
+
     private SupportRequestsDb() {
         // prevent initialization
     }
@@ -39,18 +42,80 @@ public final class SupportRequestsDb extends EntitiesDb<SupportRequest, SupportR
         return supportRequestAttributes;
     }
 
+    /**
+     * Gets a support request by its unique ID.
+     */
+    public SupportRequestAttributes getSupportRequest(String supportRequestId) {
+        assert supportRequestId != null;
+
+        return supportRequestId.isEmpty() ? null : makeAttributesOrNull(getSupportRequestEntity(supportRequestId));
+    }
+
     public List<SupportRequestAttributes> getSupportRequestsForEmail(String email) {
         assert email != null;
 
         List<SupportRequest> supportRequests = getSupportRequestEntitiesForEmail(email);
         List<SupportRequestAttributes> supportRequestAttributes = makeAttributes(supportRequests);
         SupportRequestAttributes.sortByCreatedAt(supportRequestAttributes);
-        
+
         return supportRequestAttributes;
     }
 
     private List<SupportRequest> getSupportRequestEntitiesForEmail(String email) {
         return load().filter("email =", email).list();
+    }
+
+    public SupportRequestAttributes updateSupportRequest(SupportRequestAttributes.UpdateOptions updateOptions)
+            throws InvalidParametersException, EntityDoesNotExistException {
+        assert updateOptions != null;
+
+        SupportRequest supportRequest = getSupportRequestEntity(updateOptions.getId());
+        if (supportRequest == null) {
+            throw new EntityDoesNotExistException(ERROR_UPDATE_NON_EXISTENT + updateOptions);
+        }
+
+        SupportRequestAttributes newAttributes = makeAttributes(supportRequest);
+        newAttributes.update(updateOptions);
+
+        newAttributes.sanitizeForSaving();
+        if (!newAttributes.isValid()) {
+            throw new InvalidParametersException(newAttributes.getInvalidityInfo());
+        }
+
+        // update only if change
+        boolean hasSameAttributes = this.<String>hasSameValue(supportRequest.getTitle(), newAttributes.getTitle())
+                && this.<String>hasSameValue(supportRequest.getDescription(), newAttributes.getDescription())
+                && this.<String>hasSameValue(supportRequest.getEmail(), newAttributes.getEmail())
+                && this.<String>hasSameValue(supportRequest.getResponse(), newAttributes.getResponse())
+                && this.<SupportRequestStatus>hasSameValue(supportRequest.getSupportRequestStatus(),
+                        newAttributes.getSupportRequestStatus())
+                && this.<SupportRequestCategory>hasSameValue(supportRequest.getSupportRequestCategory(),
+                        newAttributes.getSupportRequestCategory());
+
+        if (hasSameAttributes) {
+            log.info(String.format(OPTIMIZED_SAVING_POLICY_APPLIED, SupportRequest.class.getSimpleName(),
+                    updateOptions));
+            return newAttributes;
+        }
+
+        supportRequest.setEmail(newAttributes.getEmail());
+        supportRequest.setTitle(newAttributes.getTitle());
+        supportRequest.setDescription(newAttributes.getDescription());
+        supportRequest.setSupportRequestStatus(newAttributes.getSupportRequestStatus());
+        supportRequest.setSupportRequestCategory(newAttributes.getSupportRequestCategory());
+        supportRequest.setResponse(newAttributes.getResponse());
+        supportRequest.setHasNewChanges(newAttributes.getHasNewChanges());
+        supportRequest.setModifiedAt(newAttributes.getModifiedAt());
+
+        saveEntity(supportRequest);
+
+        newAttributes = makeAttributes(supportRequest);
+
+        return newAttributes;
+    }
+
+    private SupportRequest getSupportRequestEntity(String id) {
+        return load().id(id).now();
     }
 
     @Override

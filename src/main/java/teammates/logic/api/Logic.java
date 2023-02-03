@@ -1725,6 +1725,15 @@ public class Logic {
         return supportRequestsLogic.getAllSupportRequests();
     }
 
+    /**
+     * Gets a support request by ID.
+     *
+     * @return Null if no match found.
+     */
+    public SupportRequestAttributes getSupportRequest(String supportRequestId) {
+        return supportRequestsLogic.getSupportRequest(supportRequestId);
+    }
+
     /*
      * Gets all support requests for email.
      */
@@ -1733,4 +1742,20 @@ public class Logic {
         return supportRequestsLogic.getSupportRequestsForEmail(email);
     }
 
+    /**
+     * Updates a support request.
+     *
+     * <p>Preconditions:</p>
+     * * All parameters are non-null.
+     *
+     * @return the updated support request
+     * @throws InvalidParametersException if the updated support request is not valid
+     * @throws EntityDoesNotExistException if the support request to update does not exist
+     */
+    public SupportRequestAttributes updateSupportRequest(SupportRequestAttributes.UpdateOptions updateOptions) 
+            throws InvalidParametersException, EntityDoesNotExistException {
+        assert updateOptions != null;
+
+        return supportRequestsLogic.updateSupportRequest(updateOptions);
+    }
 }

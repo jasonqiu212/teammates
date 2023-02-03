@@ -8,6 +8,9 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Translate;
 
+import teammates.common.datatransfer.attributes.SupportRequestAttributes.SupportRequestCategory;
+import teammates.common.datatransfer.attributes.SupportRequestAttributes.SupportRequestStatus;
+
 /**
  * Represents a SupportRequest entity.
  */
@@ -24,11 +27,9 @@ public class SupportRequest extends BaseEntity {
 
     private String description;
 
-    /* Only accepts: 'submitted', 'pending', 'request_to_close', 'closed' */
-    private String status; 
+    private SupportRequestStatus status;
 
-    /* Only accepts: 'bug_report', 'new_feature', 'inquiry', 'others' */
-    private String category;
+    private SupportRequestCategory category;
 
     private String response;
 
@@ -45,7 +46,10 @@ public class SupportRequest extends BaseEntity {
         // required by Objectify
     }
 
-    public SupportRequest(String email, String title, String description, String status, String category, String response, Boolean hasNewChanges) {
+    public SupportRequest(String email, String title, String description,
+            SupportRequestStatus status,
+            SupportRequestCategory category,
+            String response, Boolean hasNewChanges) {
         this.setEmail(email);
         this.setTitle(title);
         this.setCreatedAt(Instant.now());
@@ -90,19 +94,19 @@ public class SupportRequest extends BaseEntity {
         this.description = description.trim();
     }
 
-    public String getSupportRequestStatus() {
+    public SupportRequestStatus getSupportRequestStatus() {
         return status;
     }
 
-    public void setSupportRequestStatus(String status) {
+    public void setSupportRequestStatus(SupportRequestStatus status) {
         this.status = status;
     }
 
-    public String getSupportRequestCategory() {
+    public SupportRequestCategory getSupportRequestCategory() {
         return category;
     }
 
-    public void setSupportRequestCategory(String category) {
+    public void setSupportRequestCategory(SupportRequestCategory category) {
         this.category = category;
     }
 
