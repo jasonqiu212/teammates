@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { NavigationService } from "src/web/services/navigation.service";
 import { SortBy, SortOrder } from "../../../types/sort-properties";
 import {
   SupportRequestsTableColumn,
@@ -40,12 +41,24 @@ export class SupportRequestsTableComponent {
   sortSupportRequestsTableRowModelsEvent: EventEmitter<SortBy> =
     new EventEmitter();
 
-  constructor() {}
+  constructor(private navigationService: NavigationService) {}
 
   /**
    * Sorts the list of support request row.
    */
   sortSupportRequestsTableRowModels(by: SortBy): void {
     this.sortSupportRequestsTableRowModelsEvent.emit(by);
+  }
+
+
+  public navToSupportRequest(srId: string) {
+    let url = `/web/admin/requests/edit-request`;
+    let params: Record<string, string> = {
+      supportRequestId: srId
+    }
+    this.navigationService.navigateByURL(url, params).then(v => {
+      console.log("Navigated to ", url, v);
+    });
+    
   }
 }

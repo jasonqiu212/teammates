@@ -49,8 +49,19 @@ const routes: Routes = [
   },
   {
     path: 'requests',
-    loadChildren: () => import('./admin-support-requests-page/admin-support-requests-page.module')
-        .then((m: any) => m.AdminSupportRequestsPageModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./admin-support-requests-page/admin-support-requests-page.module')
+            .then((m: any) => m.AdminSupportRequestsPageModule),
+      },
+      {
+        path: 'edit-request',
+        loadChildren: () => import('./admin-edit-support-request-page/admin-edit-support-request-page.module')
+            .then((m: any) => m.AdminEditSupportRequestPageModule),
+      }
+    ]
+    
   },
   {
     path: 'logs',
