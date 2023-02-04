@@ -120,11 +120,13 @@ export class SupportRequestEditFormComponent implements OnInit {
     let now = new Date().getTime();
     this.formModel.createdAt = now;
     this.formModel.modifiedAt = now;
+    this.formModel.hasNewChanges = true;
     this.onCreateSupportRequestEvent.emit(this.formModel);
   }
 
   public onUpdate(): void {
     this.formModel.modifiedAt = new Date().getTime();
+    this.formModel.hasNewChanges = true;
     this.onUpdateSupportRequestEvent.emit(this.formModel);
   }
 }

@@ -25,6 +25,10 @@ export class EditSupportRequestPageComponent implements OnInit {
   isLoading: boolean = false;
 
   ngOnInit() {
+    this.onLoad();
+  }
+
+  private onLoad(): void {
     this.isLoading = true;
     this.route.queryParams.subscribe({
       next: (queryParams: any) => {
@@ -67,13 +71,14 @@ export class EditSupportRequestPageComponent implements OnInit {
           this.statusMessageService.showSuccessToast(
             "Support request updated successfully."
           );
-          this.ngOnInit();
+          this.onLoad();
         },
         error: (resp: ErrorMessageOutput) => {
           this.statusMessageService.showErrorToast(resp.error.message);
         },
+        complete: () => {
+          this.isLoading = false;
+        }
       });
-
-    this.isLoading = false;
   }
 }
