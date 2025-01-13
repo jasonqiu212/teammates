@@ -3,7 +3,6 @@
   "pages": [
     {
       "src": "CONTRIBUTING.md",
-      "title": "",
       "headings": {
         "contributing-to-teammates": "Contributing to TEAMMATES",
         "getting-started": "Getting started",
@@ -21,7 +20,6 @@
     },
     {
       "src": "SUPPORT.md",
-      "title": "",
       "headings": {
         "teammates-support": "TEAMMATES Support"
       },
@@ -299,6 +297,19 @@
       "headingKeywords": {}
     },
     {
+      "src": "schema-migration.md",
+      "title": "Schema Migration",
+      "headings": {
+        "sql-schema-migration": "SQL Schema Migration",
+        "liquibase-in-teammates": "Liquibase in Teammates",
+        "liquibase-connection": "Liquibase connection",
+        "change-logs-change-sets-and-change-types": "Change logs, change sets and change types",
+        "gradle-activities-for-liquibase": "Gradle Activities for Liquibase",
+        "generating-updating-liquibase-change-logs": "Generating/ Updating liquibase change logs"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "search.md",
       "title": "Search",
       "headings": {
@@ -355,6 +366,19 @@
         "common-setup-errors-and-solutions": "Common setup errors and solutions",
         "common-test-errors-and-solutions": "Common test errors and solutions",
         "submitting-help-request": "Submitting help request"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "unit-testing.md",
+      "title": "Unit Testing",
+      "headings": {
+        "unit-testing": "Unit Testing",
+        "what-is-unit-testing": "What is Unit Testing?",
+        "writing-unit-tests": "Writing Unit Tests",
+        "general-guidelines": "General guidelines",
+        "frontend": "Frontend",
+        "backend": "Backend"
       },
       "headingKeywords": {}
     }
